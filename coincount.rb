@@ -1,3 +1,4 @@
+require 'pry'
 
 puts "Please enter your bill:"
 bill = gets.chomp.to_f
@@ -5,15 +6,31 @@ puts "Please enter how much you are paying:"
 payment = gets.chomp.to_f
 change =  (payment - bill).round(2).to_f
 
+starting_float = {
+twopound_coins: 20,
+onepound_coins: 20,
+fifty_coins: 20,
+twenty_coins: 20,
+ten_coins: 10,
+five_coins: 10,
+two_coins: 10,
+one_coins: 10
+}
+
 starting_change = change
 
 twopound_coins = (change/2).floor
 if twopound_coins < 1
   0
-else
+elsif starting_float[:twopound_coins] > twopound_coins
   twopound_coins
+else
+  twopound_coins = 0
 end
 change = change - (twopound_coins*2)
+starting_float[:twopound_coins] -= twopound_coins
+binding.pry
+
 
 onepound_coins = (change/1).floor
 if onepound_coins < 1
@@ -82,7 +99,7 @@ end
   puts "#{two_coins} x 2p coins."
   puts "#{one_coins} x 1p coins."
 
-kuhler
+#kuhler
 
 
 
